@@ -1,0 +1,18 @@
+<div class="content-container">
+  <div class="content-container__base">
+<ul class="content-container__base-list">
+  <li *ngFor="let baseElement of base"
+      [routerLink]="baseElement.path"
+      class="content-container__element">
+    <mat-card [routerLinkActive]="'content-container__element--active'" class="content-container__element-card">
+      <mat-icon class="content-container__element-icon">{{baseElement.icon}}</mat-icon>
+      <span class="content-container__element-title">{{baseElement.title}}</span>
+    </mat-card>
+  </li>
+</ul>
+  </div>
+  <div class="content-container__card">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+

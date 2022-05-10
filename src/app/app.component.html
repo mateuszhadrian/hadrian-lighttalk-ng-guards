@@ -1,2 +1,40 @@
-<div>{{title}}</div>
-<div>GitHub pull request test</div>
+<div class="homepage">
+  <mat-toolbar color="primary" class="homepage__navbar">
+    <div class="homepage__title">
+      <mat-icon
+        routerLink='/base'
+        class="homepage__logo">important_devices</mat-icon>
+      <h1 class="homepage__name">Baza wiedzy o programowaniu</h1>
+    </div>
+    <div class="homepage__login-area">
+      <button
+        [color]="isAuthenticated? 'warn' : 'accent'"
+        (click)="isAuthenticated? logout(): null"
+        routerLink='/auth' mat-fab class="homepage__login-button">
+        <mat-icon *ngIf="!isAuthenticated" class="homepage__login-icon">account_circle</mat-icon>
+        <mat-icon *ngIf="isAuthenticated" class="homepage__login-icon">exit_to_app</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+
+  <div class="homepage__content">
+    <router-outlet></router-outlet>
+  </div>
+
+  <div class="homepage__login-status-area">
+    <mat-card
+      class="homepage__login-status-card"
+      [ngClass]="isAuthenticated ? 'homepage__login-status-card--logged-in' : 'homepage__login-status-card--logged-out'">
+      <span *ngIf="!isAuthenticated" class="homepage__login-status-info">
+        Jesteś wylogowany
+      </span>
+      <mat-icon *ngIf="!isAuthenticated" class="homepage__login-status-icon">lock</mat-icon>
+
+      <span *ngIf="isAuthenticated" class="homepage__login-status-info">
+        Jesteś zalogowany
+      </span>
+      <mat-icon *ngIf="isAuthenticated" class="homepage__login-status-icon">lock_open</mat-icon>
+    </mat-card>
+  </div>
+</div>
+

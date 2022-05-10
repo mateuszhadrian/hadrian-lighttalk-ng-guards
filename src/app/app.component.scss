@@ -1,0 +1,67 @@
+.homepage {
+  &__navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 4em;
+  }
+  &__title {
+    display: flex;
+  }
+  &__logo {
+    position: relative;
+    bottom: 0.25em;
+    font-size: 3.5em;
+    margin-right: 1.6em;
+    &:hover {
+      transform: scale(1.1);
+      cursor: pointer;
+    }
+  }
+  &__name {
+    font-size: 1.8em;
+    letter-spacing: 4px;
+  }
+  &__login-button {
+    transform: scale(1.7);
+    &:hover {
+      transform: scale(2.0);
+    }
+  }
+  &__login-icon {
+    position: relative;
+    bottom: 1px;
+    transform: scale(1.7);
+  }
+  &__content {
+    margin: 4em;
+  }
+  &__login-status-area {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    bottom: 0;
+  }
+  &__login-status-card {
+    padding: 4em 6em;
+    width: 26em;
+    display: flex;
+    justify-content: space-between;
+    background-color: #f5f5f5;
+    &--logged-in {
+      color: #004f2d;
+    }
+    &--logged-out {
+      color: #9b1d20
+    }
+  }
+  &__login-status-info {
+    font-size: 1.8em;
+  }
+
+  &__login-status-icon {
+    position: relative;
+    bottom: 0.3em;
+    transform: scale(3);
+  }
+}

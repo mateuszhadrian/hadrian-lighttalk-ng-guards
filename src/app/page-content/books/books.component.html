@@ -1,0 +1,13 @@
+<div class="books">
+  <ul class="books__list">
+    <li *ngFor="let book of books" class="books__element">
+      <mat-icon class="books__book-icon">library_books</mat-icon>
+      <div class="books__book-description">
+        <span class="books__book-author">{{book.author}}</span>
+        <h2 class="books__book-title">{{book.title}}</h2>
+        <span class="books__book-scope">{{book.scope}}</span>
+        <mat-divider></mat-divider>
+      </div>
+    </li>
+  </ul>
+</div>
