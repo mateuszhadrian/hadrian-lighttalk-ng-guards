@@ -45,16 +45,19 @@ export class Utils {
 
  private static BOOKS: BookDto[] = [
    {
+     id: 'book1',
      title: 'JavaScript. The Definitive Guide',
      author: 'David Flanagan',
      scope: 'JavaScript'
    },
    {
+     id: 'book2',
      title: 'TypeScript 4. Design Patterns and Best Practices',
      author: 'Theo Despoudis',
      scope: 'TypeScript'
    },
    {
+     id: 'book3',
      title: 'Clean Code',
      author: 'Robert C. Martin',
      scope: 'Programming'

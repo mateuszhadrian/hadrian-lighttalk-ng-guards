@@ -7,12 +7,14 @@ import {CoursesComponent} from './page-content/courses/courses.component';
 import {BooksComponent} from './page-content/books/books.component';
 
 const routes: Routes = [
+  {path: '', redirectTo: 'base', pathMatch: 'full' },
   {path: 'base', component: PageContentComponent, children: [
       {path: 'courses', component: CoursesComponent},
       {path: 'books', component: BooksComponent},
-      {path: 'conferences', component: ConferencesComponent}
+      {path: 'conferences', component: ConferencesComponent},
     ]},
   {path: 'auth', component: PageAuthComponent},
+  {path: '**', redirectTo: 'base'}
 ];
 
 @NgModule({

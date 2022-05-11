@@ -16,4 +16,9 @@ export class PageContentBaseService {
  conferences: ConferenceDto[] = Utils.getConferences();
 
   constructor() { }
+
+  renameBook(bookID: string, newTitle: string){
+    const bookToRename = this.books.filter(book => book.id === bookID);
+    bookToRename[0].title = newTitle;
+  }
 }
