@@ -9,7 +9,7 @@ import {AuthGuard} from './auth.guard';
 
 const routes: Routes = [
   {path: '', redirectTo: 'base', pathMatch: 'full' },
-  {path: 'base', canActivate: [AuthGuard], component: PageContentComponent, children: [
+  {path: 'base', canActivateChild: [AuthGuard], component: PageContentComponent, children: [
       {path: 'courses', component: CoursesComponent},
       {path: 'books', component: BooksComponent},
       {path: 'conferences', loadChildren: () => import('./page-content/conferences/conferences.module')
