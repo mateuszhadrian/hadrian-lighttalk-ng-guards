@@ -17,7 +17,8 @@ export class CanLoadConferencesLazilyGuard implements CanLoad {
   canLoad(
     route: Route,
     segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    this.authService.isAuthenticated$.subscribe((isAuthenticated: boolean) => {
+    this.authService.getIsAuthenticated$()
+      .subscribe((isAuthenticated: boolean) => {
       this.isAuthenticated = isAuthenticated
     });
     if (this.isAuthenticated) {
