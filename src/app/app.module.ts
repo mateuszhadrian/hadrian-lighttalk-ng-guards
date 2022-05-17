@@ -10,6 +10,7 @@ import {CoursesComponent} from './page-content/courses/courses.component';
 import {BooksComponent} from './page-content/books/books.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {BookComponent} from './page-content/books/book/book.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     PageAuthComponent,
     CoursesComponent,
     BooksComponent,
+    BookComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,37 +1,7 @@
 <div class="books">
   <ul class="books__list">
-    <li *ngFor="let book of books$ | async" class="books__element">
-      <div class="books__book-left-side">
-        <mat-icon class="books__book-icon">library_books</mat-icon>
-        <form autocomplete="off" class="books__book-description" [formGroup]="bookDetailsForm">
-          <span class="books__book-author">{{book.author}}</span>
-          <div *ngIf="isEditMode && (editedBookId === book.id); else elseBlockForTitle">
-            <mat-form-field class="books__book-form-field">
-              <input formControlName="title" matInput>
-            </mat-form-field>
-          </div>
-          <ng-template #elseBlockForTitle>
-            <h2 class="books__book-title">{{book.title}}</h2>
-          </ng-template>
-          <span class="books__book-scope">{{book.scope}}</span>
-          <mat-divider></mat-divider>
-        </form>
-      </div>
-      <button
-        (click)="onEdit(book.id, book.title)"
-        *ngIf="!(editedBookId === book.id) && !isEditMode"
-        class="books__book-edit-button">
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button
-        mat-flat-button
-        color="accent"
-        *ngIf="isEditMode && (editedBookId === book.id)"
-        (click)="onSave(book.id)"
-        class="books__book-save-button"
-      >
-        <mat-icon class="books__book-save-icon">save</mat-icon>
-      </button>
+    <li *ngFor="let book of books$ | async">
+    <app-book [book]="book"></app-book>
     </li>
   </ul>
 </div>
