@@ -1,6 +1,6 @@
 <div class="courses">
   <ul class="courses__list">
-    <li *ngFor="let course of courses" class="courses__element">
+    <li *ngFor="let course of courses$ | async" class="courses__element">
       <mat-icon class="courses__course-icon">movie</mat-icon>
       <div class="courses__course-description">
         <span class="courses__course-author">{{course.author}}</span>

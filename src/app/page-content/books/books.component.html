@@ -1,6 +1,6 @@
 <div class="books">
   <ul class="books__list">
-    <li *ngFor="let book of books" class="books__element">
+    <li *ngFor="let book of books$ | async" class="books__element">
       <div class="books__book-left-side">
         <mat-icon class="books__book-icon">library_books</mat-icon>
         <form autocomplete="off" class="books__book-description" [formGroup]="bookDetailsForm">
@@ -18,8 +18,8 @@
         </form>
       </div>
       <button
-        *ngIf="!(editedBookId === book.id) && !isEditMode"
         (click)="onEdit(book.id, book.title)"
+        *ngIf="!(editedBookId === book.id) && !isEditMode"
         class="books__book-edit-button">
         <mat-icon>edit</mat-icon>
       </button>

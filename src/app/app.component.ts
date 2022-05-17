@@ -1,34 +1,20 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {AuthService} from './auth.service';
-import {Subject, takeUntil} from 'rxjs';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent {
 
-  isAuthenticated: boolean = false;
-  unsubscribe$ = new Subject<void>()
+  isAuthenticated$: Observable<boolean> = this.authService.getIsAuthenticated$();
 
   constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {
-    this.authService.getIsAuthenticated$()
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(isAuthenticated => {
-      this.isAuthenticated = isAuthenticated;
-    })
-  }
-
   logout(): void {
     this.authService.logout();
-  }
-
-  ngOnDestroy(): void {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
   }
 
 }

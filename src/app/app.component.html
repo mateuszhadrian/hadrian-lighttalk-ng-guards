@@ -8,11 +8,12 @@
     </div>
     <div class="homepage__login-area">
       <button
-        [color]="isAuthenticated? 'warn' : 'accent'"
-        (click)="isAuthenticated? logout(): null"
+        [color]="(isAuthenticated$ | async)? 'warn' : 'accent'"
+        (click)="logout()"
         routerLink='/auth' mat-fab class="homepage__login-button">
-        <mat-icon *ngIf="!isAuthenticated" class="homepage__login-icon">account_circle</mat-icon>
-        <mat-icon *ngIf="isAuthenticated" class="homepage__login-icon">exit_to_app</mat-icon>
+        <mat-icon class="homepage__login-icon">
+          {{(isAuthenticated$ | async)? 'exit_to_app': 'account_circle'}}
+        </mat-icon>
       </button>
     </div>
   </mat-toolbar>
@@ -24,16 +25,18 @@
   <div class="homepage__login-status-area">
     <mat-card
       class="homepage__login-status-card"
-      [ngClass]="isAuthenticated ? 'homepage__login-status-card--logged-in' : 'homepage__login-status-card--logged-out'">
-      <span *ngIf="!isAuthenticated" class="homepage__login-status-info">
-        Jesteś wylogowany
-      </span>
-      <mat-icon *ngIf="!isAuthenticated" class="homepage__login-status-icon">lock</mat-icon>
+      [ngClass]="(isAuthenticated$ | async) ? 'homepage__login-status-card--logged-in' : 'homepage__login-status-card--logged-out'">
+        <span *ngIf="!(isAuthenticated$ | async); else elseLoginBlock" class="homepage__login-status-info">
+          Jesteś wylogowany
+        </span>
+        <mat-icon *ngIf="!(isAuthenticated$ | async)" class="homepage__login-status-icon">lock</mat-icon>
 
-      <span *ngIf="isAuthenticated" class="homepage__login-status-info">
-        Jesteś zalogowany
-      </span>
-      <mat-icon *ngIf="isAuthenticated" class="homepage__login-status-icon">lock_open</mat-icon>
+      <ng-template #elseLoginBlock>
+        <span class="homepage__login-status-info">
+          Jesteś zalogowany
+        </span>
+        <mat-icon class="homepage__login-status-icon">done</mat-icon>
+      </ng-template>
     </mat-card>
   </div>
 </div>

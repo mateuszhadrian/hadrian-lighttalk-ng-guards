@@ -1,7 +1,7 @@
 <div class="content-container">
   <div class="content-container__base">
 <ul class="content-container__base-list">
-  <li *ngFor="let baseElement of base"
+  <li *ngFor="let baseElement of base$ | async"
       [routerLink]="baseElement.path"
       class="content-container__element">
     <mat-card [routerLinkActive]="'content-container__element--active'" class="content-container__element-card">

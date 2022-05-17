@@ -4,21 +4,37 @@ import {Utils} from '../../utils/utils';
 import {CourseDto} from '../../utils/course.dto';
 import {BookDto} from '../../utils/book.dto';
 import {ConferenceDto} from '../../utils/conference.dto';
+import {BehaviorSubject, Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PageContentBaseService {
 
- base: BaseElementsDto[] = Utils.getBase();
- courses: CourseDto[] = Utils.getCourses();
- books: BookDto[] = Utils.getBooks();
- conferences: ConferenceDto[] = Utils.getConferences();
+ private base$: BehaviorSubject<BaseElementsDto[]> = new BehaviorSubject<BaseElementsDto[]>(Utils.getBase());
+ private courses$: BehaviorSubject<CourseDto[]> = new BehaviorSubject<CourseDto[]>(Utils.getCourses());
+ private books$: BehaviorSubject<BookDto[]> = new BehaviorSubject<BookDto[]>(Utils.getBooks());
+ private conferences$: BehaviorSubject<ConferenceDto[]> = new BehaviorSubject<ConferenceDto[]>(Utils.getConferences());
+
+ getBase$(): Observable<BaseElementsDto[]>{
+   return this.base$.asObservable();
+  }
+ getCourses$(): Observable<CourseDto[]>{
+   return this.courses$.asObservable()
+ }
+ getBooks$(): Observable<BookDto[]>{
+   return this.books$.asObservable();
+ }
+ getConferences$(): Observable<ConferenceDto[]>{
+   return this.conferences$.asObservable()
+ }
 
   constructor() { }
 
   renameBook(bookID: string, newTitle: string){
-    const bookToRename = this.books.filter(book => book.id === bookID);
+    let books = this.books$.getValue();
+    const bookToRename = books.filter(book => book.id === bookID);
     bookToRename[0].title = newTitle;
+    this.books$.next(books)
   }
 }

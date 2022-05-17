@@ -17,6 +17,8 @@ export class AuthService {
   }
 
   logout(){
-    this.isAuthenticated$.next(false)
+    if (this.isAuthenticated$.getValue()){
+      this.isAuthenticated$.next(false)
+    }
   }
 }

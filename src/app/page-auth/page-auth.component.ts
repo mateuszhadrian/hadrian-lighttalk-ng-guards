@@ -12,7 +12,7 @@ export class PageAuthComponent {
   constructor(
     private authService: AuthService,
     private router: Router
-              ) {}
+  ) {}
 
   onLogin(){
     this.authService.login();
