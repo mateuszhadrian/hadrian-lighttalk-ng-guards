@@ -13,13 +13,13 @@ export class BookComponent {
   @Input()
   book: BookDto = {} as BookDto;
 
-  editedBookId: string = '';
+  isEditMode: boolean = false;
   bookDetailsForm: FormGroup = new FormGroup({})
 
   constructor(private pageContentBaseService: PageContentBaseService) { }
 
-  onEdit(id: string, title: string){
-    this.editedBookId = id;
+  onEdit(title: string){
+    this.isEditMode = true;
     this.bookDetailsForm = new FormGroup({
       'title': new FormControl(title),
     });
@@ -27,6 +27,6 @@ export class BookComponent {
 
   onSave(id: string){
     this.pageContentBaseService.renameBook(id, this.bookDetailsForm.controls['title'].value);
-    this.editedBookId = '';
+    this.isEditMode = false;
   }
 }

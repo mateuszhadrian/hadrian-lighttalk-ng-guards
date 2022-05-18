@@ -3,7 +3,7 @@
     <mat-icon class="book__icon">library_books</mat-icon>
     <form autocomplete="off" class="book__description" [formGroup]="bookDetailsForm">
       <span class="book__author">{{book.author}}</span>
-      <div *ngIf="editedBookId === book.id; else elseBlockForTitle">
+      <div *ngIf="isEditMode; else elseBlockForTitle">
         <mat-form-field class="book__form-field">
           <input formControlName="title" matInput>
         </mat-form-field>
@@ -16,15 +16,15 @@
     </form>
   </div>
   <button
-    (click)="onEdit(book.id, book.title)"
-    *ngIf="editedBookId !== book.id"
+    (click)="onEdit(book.title)"
+    *ngIf="!isEditMode"
     class="book__edit-button">
     <mat-icon>edit</mat-icon>
   </button>
   <button
     mat-flat-button
     color="accent"
-    *ngIf="editedBookId === book.id"
+    *ngIf="isEditMode"
     (click)="onSave(book.id)"
     class="book__save-button">
     <mat-icon class="book__save-icon">save</mat-icon>
