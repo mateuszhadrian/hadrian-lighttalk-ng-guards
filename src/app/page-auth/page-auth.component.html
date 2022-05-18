@@ -1,0 +1,28 @@
+<div class="auth-container">
+  <form
+    class="auth-container__form"
+    (submit)="$event.preventDefault()">
+    <mat-form-field
+      class="auth-form__field"
+      appearance="fill">
+      <mat-label>Email</mat-label>
+      <input type="email"
+             matInput
+             value="user@pgs-soft.com">
+    </mat-form-field>
+    <mat-form-field class="auth-form__field" appearance="fill">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        type="password"
+        value="password_password">
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="accent"
+      class="auth-form__button"
+      (click)="onLogin()">
+      Login
+    </button>
+  </form>
+</div>

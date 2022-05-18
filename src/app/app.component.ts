@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {AuthService} from './auth.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'hadrian-lighttalk-ng-guards';
+
+  isAuthenticated$: Observable<boolean> = this.authService.getIsAuthenticated$();
+
+  constructor(private authService: AuthService) {}
+
+  logout(): void {
+    this.authService.logout();
+  }
+
 }

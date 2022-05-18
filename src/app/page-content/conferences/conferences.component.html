@@ -1,0 +1,13 @@
+<div class="conferences">
+  <ul class="conferences__list">
+    <li *ngFor="let conference of conferences$ | async" class="conferences__element">
+      <mat-icon class="conferences__conference-icon">record_voice_over</mat-icon>
+      <div class="conferences__conference-description">
+        <span class="conferences__conference-author">{{conference.speaker}}</span>
+        <h2 class="conferences__conference-title">{{conference.title}}</h2>
+        <span class="conferences__conference-scope">{{conference.scope}}</span>
+        <mat-divider></mat-divider>
+      </div>
+    </li>
+  </ul>
+</div>

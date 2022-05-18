@@ -1,0 +1,8 @@
+<div class="books">
+  <ul class="books__list">
+    <li *ngFor="let book of books$ | async">
+    <app-book [book]="book"></app-book>
+    </li>
+  </ul>
+</div>
+<router-outlet></router-outlet>
