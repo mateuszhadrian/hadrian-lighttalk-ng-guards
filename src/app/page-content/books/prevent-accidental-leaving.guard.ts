@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, CanDeactivate, RouterStateSnapshot, UrlTree } f
 import { Observable } from 'rxjs';
 
 export interface CanComponentDeactivate {
-  canDeactivate: () => Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree
+  shouldLetUserLeaveTheRoute: () => Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree
 }
 
 @Injectable({
@@ -15,7 +15,7 @@ export class PreventAccidentalLeavingGuard implements CanDeactivate<CanComponent
     currentRoute: ActivatedRouteSnapshot,
     currentState: RouterStateSnapshot,
     nextState?: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return component.canDeactivate();
+    return component.shouldLetUserLeaveTheRoute();
   }
 
 }

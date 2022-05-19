@@ -28,7 +28,7 @@ export class BooksComponent implements CanComponentDeactivate {
     }
   }
 
-  canDeactivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  shouldLetUserLeaveTheRoute(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (this.editModeCounter && !this.isEditMode) {
       return confirm('Masz włączony tryb edycji. Czy na pewno chcesz opuścić kategorię?')
     } else {
