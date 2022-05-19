@@ -1,14 +1,12 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
-import {Observable, take} from 'rxjs';
+import {Observable, of, switchMap} from 'rxjs';
 import {AuthService} from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-
-  private isAuthenticated: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -17,16 +15,13 @@ export class AuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    this.authService.getIsAuthenticated$()
-      .pipe(take(1))
-      .subscribe((isAuthenticated) => {
-      this.isAuthenticated = isAuthenticated;
-    });
-    if (this.isAuthenticated) {
-      return true
-    } else {
-     return this.router.createUrlTree(['/auth'])
-    }
-  }
-
+    return this.authService.getIsAuthenticated$()
+      .pipe(switchMap((isAuthenticated) => {
+        if(isAuthenticated) {
+          return of(true);
+        } else {
+          return of(this.router.createUrlTree(['/auth']));
+        }
+    }));
+  };
 }
