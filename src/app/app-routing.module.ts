@@ -5,10 +5,11 @@ import {PageAuthComponent} from './page-auth/page-auth.component';
 import {CoursesComponent} from './page-content/courses/courses.component';
 import {BooksComponent} from './page-content/books/books.component';
 import {ConferencesModule} from './page-content/conferences/conferences.module';
+import {AuthGuard} from './auth.guard';
 
 const routes: Routes = [
   {path: '', redirectTo: 'base', pathMatch: 'full' },
-  {path: 'base', component: PageContentComponent, children: [
+  {path: 'base', canActivate: [AuthGuard], component: PageContentComponent, children: [
       {path: 'courses', component: CoursesComponent},
       {path: 'books', component: BooksComponent},
       {path: 'conferences', loadChildren: () => import('./page-content/conferences/conferences.module')
