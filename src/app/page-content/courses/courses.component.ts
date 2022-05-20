@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CourseDto} from '../../../utils/course.dto';
 // import {PageContentBaseService} from '../page-content-base.service';
-import {ActivatedRoute, Data} from '@angular/router';
-import {Observable, of} from 'rxjs';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-courses',
@@ -19,9 +18,6 @@ export class CoursesComponent implements OnInit {
 
   ngOnInit(): void {
     // this.courses = this.pageContentBaseService.courses;
-    this.route.data.subscribe((data: Data) => {
-      this.courses = data['courses']
-    })
+    this.courses = this.route.snapshot.data['courses']
   }
-
 }
