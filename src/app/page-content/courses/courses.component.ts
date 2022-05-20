@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {CourseDto} from '../../../utils/course.dto';
-// import {PageContentBaseService} from '../page-content-base.service';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -9,15 +8,16 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./courses.component.scss']
 })
 export class CoursesComponent implements OnInit {
+  // courses$: Observable<CourseDto[]> = of([]);
   courses: CourseDto[] = []
 
   constructor(
     // private pageContentBaseService: PageContentBaseService,
-    private route: ActivatedRoute
-              ) { }
+       private route: ActivatedRoute
+      ) {}
 
   ngOnInit(): void {
-    // this.courses = this.pageContentBaseService.courses;
+    // this.courses$ = this.pageContentBaseService.getCourses$();
     this.courses = this.route.snapshot.data['courses']
   }
 }
