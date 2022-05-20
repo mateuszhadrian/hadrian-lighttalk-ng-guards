@@ -8,7 +8,6 @@ import {PageContentBaseService} from '../page-content-base.service';
   providedIn: 'root'
 })
 export class CoursesResolver implements Resolve<CourseDto[]> {
-  courses: CourseDto[] = [];
   constructor(private pageContentBaseService: PageContentBaseService) {
   }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<CourseDto[]> {
