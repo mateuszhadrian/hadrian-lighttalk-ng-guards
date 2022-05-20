@@ -8,7 +8,7 @@ import {ConferencesModule} from './page-content/conferences/conferences.module';
 // import {AuthGuard} from './auth.guard';
 import {PreventAccidentalLeavingGuard} from './page-content/books/prevent-accidental-leaving.guard';
 import {CoursesResolver} from './page-content/courses/courses.resolver';
-import {CanLoadConferencesLazilyGuard} from './page-content/conferences/can-load-conferences-lazily.guard';
+import {AuthGuard} from './auth.guard';
 
 const routes: Routes = [
   {path: '', redirectTo: 'base', pathMatch: 'full' },
@@ -21,7 +21,7 @@ const routes: Routes = [
       {path: 'conferences',
         loadChildren: () => import('./page-content/conferences/conferences.module')
           .then((m : {ConferencesModule: ConferencesModule}) => m.ConferencesModule),
-        canLoad: [CanLoadConferencesLazilyGuard]
+        canLoad: [AuthGuard]
       },
     ]},
   {path: 'auth', component: PageAuthComponent},
