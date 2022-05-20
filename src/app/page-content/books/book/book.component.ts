@@ -1,7 +1,8 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, Output} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {PageContentBaseService} from '../../page-content-base.service';
 import {BookDto} from '../../../../utils/book.dto';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-book',
@@ -13,13 +14,14 @@ export class BookComponent {
   @Input()
   book: BookDto = {} as BookDto;
 
-  isEditMode: boolean = false;
-  bookDetailsForm: FormGroup = new FormGroup({})
+  @Output()
+  isEditMode$: Subject<boolean> = new Subject<boolean>();
+  bookDetailsForm: FormGroup = new FormGroup({});
 
   constructor(private pageContentBaseService: PageContentBaseService) { }
 
   onEdit(title: string){
-    this.isEditMode = true;
+    this.isEditMode$.next(true);
     this.bookDetailsForm = new FormGroup({
       'title': new FormControl(title),
     });
@@ -27,6 +29,6 @@ export class BookComponent {
 
   onSave(id: string){
     this.pageContentBaseService.renameBook(id, this.bookDetailsForm.controls['title'].value);
-    this.isEditMode = false;
+    this.isEditMode$.next(false);
   }
 }

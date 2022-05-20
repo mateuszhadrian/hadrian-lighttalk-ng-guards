@@ -6,12 +6,13 @@ import {CoursesComponent} from './page-content/courses/courses.component';
 import {BooksComponent} from './page-content/books/books.component';
 import {ConferencesModule} from './page-content/conferences/conferences.module';
 import {AuthGuard} from './auth.guard';
+import {PreventAccidentalLeavingGuard} from './page-content/books/prevent-accidental-leaving.guard';
 
 const routes: Routes = [
   {path: '', redirectTo: 'base', pathMatch: 'full' },
-  {path: 'base', canActivate: [AuthGuard], component: PageContentComponent, children: [
+  {path: 'base', canActivateChild: [AuthGuard], component: PageContentComponent, children: [
       {path: 'courses', component: CoursesComponent},
-      {path: 'books', component: BooksComponent},
+      {path: 'books', component: BooksComponent, canDeactivate: [PreventAccidentalLeavingGuard]},
       {path: 'conferences', loadChildren: () => import('./page-content/conferences/conferences.module')
           .then((m : {ConferencesModule: ConferencesModule}) => m.ConferencesModule)},
     ]},
