@@ -2,18 +2,18 @@ import {Injectable} from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
-  CanActivateChild,
+  CanActivateChild, CanLoad, Route,
   Router,
-  RouterStateSnapshot,
+  RouterStateSnapshot, UrlSegment,
   UrlTree
 } from '@angular/router';
-import {Observable, of, switchMap} from 'rxjs';
+import {Observable, of, switchMap, take} from 'rxjs';
 import {AuthService} from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate, CanActivateChild {
+export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
 
   constructor(
     private authService: AuthService,
@@ -23,7 +23,8 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.authService.getIsAuthenticated$()
-      .pipe(switchMap((isAuthenticated) => {
+      .pipe(take(1),
+        switchMap((isAuthenticated) => {
         if(isAuthenticated) {
           return of(true);
         } else {
@@ -34,5 +35,18 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.canActivate(childRoute, state)
+  }
+
+  canLoad(route: Route, segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    return this.authService.getIsAuthenticated$()
+      .pipe(
+        take(1),
+        switchMap((isAuthenticated) => {
+        if(isAuthenticated) {
+          return of(true);
+        } else {
+          return of(this.router.createUrlTree(['/auth']));
+        }
+      }));
   }
 }

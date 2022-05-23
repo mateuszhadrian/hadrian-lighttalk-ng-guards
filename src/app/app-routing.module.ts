@@ -5,17 +5,23 @@ import {PageAuthComponent} from './page-auth/page-auth.component';
 import {CoursesComponent} from './page-content/courses/courses.component';
 import {BooksComponent} from './page-content/books/books.component';
 import {ConferencesModule} from './page-content/conferences/conferences.module';
-import {AuthGuard} from './auth.guard';
 import {PreventAccidentalLeavingGuard} from './page-content/books/prevent-accidental-leaving.guard';
 import {CoursesResolver} from './page-content/courses/courses.resolver';
+import {AuthGuard} from './auth.guard';
 
 const routes: Routes = [
   {path: '', redirectTo: 'base', pathMatch: 'full' },
-  {path: 'base', canActivateChild: [AuthGuard], component: PageContentComponent, children: [
+  {path: 'base',
+    // canActivateChild: [AuthGuard], // uncomment the line and comment canLoad (23) in order to compare
+    component: PageContentComponent,
+    children: [
       {path: 'courses', component: CoursesComponent, resolve: {courses: CoursesResolver}},
       {path: 'books', component: BooksComponent, canDeactivate: [PreventAccidentalLeavingGuard]},
-      {path: 'conferences', loadChildren: () => import('./page-content/conferences/conferences.module')
-          .then((m : {ConferencesModule: ConferencesModule}) => m.ConferencesModule)},
+      {path: 'conferences',
+        loadChildren: () => import('./page-content/conferences/conferences.module')
+          .then((m : {ConferencesModule: ConferencesModule}) => m.ConferencesModule),
+        canLoad: [AuthGuard]
+      },
     ]},
   {path: 'auth', component: PageAuthComponent},
   {path: '**', redirectTo: 'base'}
